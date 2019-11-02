@@ -16,12 +16,12 @@ Activities Names are loaded from  the file "UCI HAR Dataset/activity_labels.txt"
 # Data Merge
 All these data can be merged using the following process :
 
-- read data from subject, which will create one column and n rows, the column name is **"Subject_ID"**.
-- read data from target, which will create one column and n rows, the column name is **"Activity_ID"**.
+- read data from subject, which will create one column and n rows, the column name is **Subject_ID**.
+- read data from target, which will create one column and n rows, the column name is **Activity_ID**.
 - read data from data, which will create 561 columns and n rows, the columns name are from the **features.txt** file.
 - bind these columns using the cbind function which will create a table of n rows and 563 columns
-- read activities names from **activities_label.txt**, which will create 2 columns **"Activity_ID"** and **"Activity_Name"** and 6 rows
-- merge **"Activity_Name"** with all data using **"Activity_ID"**
+- read activities names from **activities_label.txt**, which will create 2 columns **Activity_ID** and **Activity_Name** and 6 rows
+- merge **Activity_Name** with all data using **Activity_ID**
 
 
 # Tidy Data
@@ -46,10 +46,10 @@ As requested, a column is available with Activities Names, called *Activity_Name
 *Activity_Name* is a <character> column.
 
 ## 4 : Variables names
-Variables names are directly the one used by the original dataset and provided into the *"features.txt"* file.
+Variables names are directly the one used by the original dataset and provided into the *features.txt* file.
 
 ## 5 : Average of each variable for each activity and each subject
 From the *reduced_tidy_data* dataset, a second one is generated using group_by function to group frist by *Activity_Name* column and then by *Subject_ID*, and then function summarize is used to do apply mean function to this group by.
-Names of all variables have been modified adding *"mean_"* before them to noticed that they are averages.
+Names of all variables have been modified adding *mean_* before them to noticed that they are averages.
 
 The generated new data set is called *mean_tidy_data* and file *"mean_tidy_data.csv.zip"* is generated.
