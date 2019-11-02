@@ -11,6 +11,9 @@ Data have been loaded from following files
 - "UCI HAR Dataset/train/subject_train.txt", subjects for training
 
 Features Names have been loaded from the file, "UCI HAR Dataset/features.txt"
+Activities Names are loaded from  the file "UCI HAR Dataset/activity_labels.txt"
+
+# Data Merge
 All these data can be merged using the following process :
 
 - read data from subject, which will create one column and n rows, the column name is **"Subject_ID"**.
@@ -21,53 +24,32 @@ All these data can be merged using the following process :
 - merge **"Activity_Name"** with all data using **"Activity_ID"**
 
 
-# Data meaning
+# Tidy Data
+## 1 : Tidy Data from test and train dataset
+*tidy_data* tbl_df is produced at the end of this process (read and merge data) with
 
-## Subject
-There are 30 subjects in this experiment, identified from 1 to 30.
-They are volunteers within an age bracket of 19-48 years.
+ - 1 variable per column
+ - 1 observation per row
+ - there is only one table for this experiment
 
-## Target Activities
-There are 6 different activities performed by the volunteers, identified from 1 to 6.
-These activities are WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING.
-They were performed wearing a smartphone (Samsung Galaxy SII), and embedded accelerometer and gyroscope were used to capture data.
+A file *tidy_data.csv.zip* is also produced at the end of the script.
 
+## 2 : Tidy Data with only mean() and std()
+As requested, a reduced data set with only *mean()* and *std()* values for all the mesures is produced.
+*meanFreq()* has not been taken into account and all these measures are out of scope.
+A regexp is used to select the good columns.
 
-## Data
-These data were captured from accelerometer and gyroscope, were pre-processed by applying filters and sampled in sliding windows of 2.56 s and 50% overlap. Each windows has 128 readings.
+*reduced_tidy_data* tbl_df is generated and also saved into file *reduced_tidy_data.csv.zip*.
 
-Each record is providing :
-- Triaxal acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
-- Triaxial Angular velocity from the gyroscope.
-- A 561-feature vector with time and frequency domain variables.
-- Its activity label.
-- An identifier of the subject who carried out the experiment.
+## 3 : Activities names
+As requested, a column is available with Activities Names, called *Activity_Name*. *Activitiy_ID* column has been kept into the table.
+*Activity_Name* is a <character> column.
 
-## Tidy Data with only mean and standard deviation
+## 4 : Variables names
+Variables names are directly the one used by the original dataset and provided into the *"features.txt"* file.
 
-A regexp is used to extract only columns with name like
-- *mean(* , to select only names with "mean()" and avoid "meanFreq()"
-- *std* , to select only names with "std()"
-- *Subject_ID*, to select "Subject_ID"
-- *Activity_*, to select "Activity_ID" and "Activity_Name"
+## 5 : Average of each variable for each activity and each subject
+From the *reduced_tidy_data* dataset, a second one is generated using group_by function to group frist by *Activity_Name* column and then by *Subject_ID*, and then function summarize is used to do apply mean function to this group by.
+Names of all variables have been modified adding *"mean_"* before them to noticed that they are averages.
 
-## Tidy Data group by Activities and Subjects
-
-Tidy Data can be group by **Activity_Name** and then by **Subject_ID**.
-For Activity, one can use **Activity_ID** or **Activity_Name**, here **Activity_Name** is used.
-
-
-## Data
-### Original Data set
-Original Data set has been modified and contains only the following files:
-
-- ./UCI HAR Dataset/train/subject_train.txt
-- ./UCI HAR Dataset/train/X_train.txt
-- ./UCI HAR Dataset/train/y_train.txt
-- ./UCI HAR Dataset/activity_labels.txt
-- ./UCI HAR Dataset/features.txt
-- ./UCI HAR Dataset/features_info.txt
-- ./UCI HAR Dataset/README.txt
-- ./UCI HAR Dataset/test/subject_test.txt
-- ./UCI HAR Dataset/test/X_test.txt
-- ./UCI HAR Dataset/test/y_test.txt
+The generated new data set is called *mean_tidy_data* and file *"mean_tidy_data.csv.zip"* is generated.

@@ -2,74 +2,77 @@
 
 
 # Original Readme
+This Code Book is just an addition to the original one from
+ **Human Activity Recognition Using Smartphones Dataset Version 1.0**
+The file is still present in this repository.
 
-# ==================================================================
-# Human Activity Recognition Using Smartphones Dataset
-# Version 1.0
-# ==================================================================
-Jorge L. Reyes-Ortiz, Davide Anguita, Alessandro Ghio, Luca Oneto.
-Smartlab - Non Linear Complex Systems Laboratory
-DITEN - Universit\E0 degli Studi di Genova.
-Via Opera Pia 11A, I-16145, Genoa, Italy.
-activityrecognition@smartlab.ws
-www.smartlab.ws
-==================================================================
+# tidy_data.csv
+This file contains all data from  the test and train dataset. Units are the same.
+Column names are directly generated from  the features.txt file.
 
-The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data.
+str(tidy_data) gives the following output (truncated here)
 
-The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain. See 'features_info.txt' for more details.
+'data.frame':	10299 obs. of  564 variables:
+ $ Subject_ID                          : num  2 2 2 2 2 2 2 2 2 2 ...
+ $ Activity_ID                         : num  1 1 1 1 1 1 1 1 1 1 ...
+ $ Activity_Name                       : chr  "WALKING" "WALKING" "WALKING" "WALKING" ...
+ $ tBodyAcc-mean()-X                   : num  0.257 0.286 0.275 0.27 0.275 ...
+ $ tBodyAcc-mean()-Y                   : num  -0.0233 -0.0132 -0.0261 -0.0326 -0.0278 ...
+ $ tBodyAcc-mean()-Z                   : num  -0.0147 -0.1191 -0.1182 -0.1175 -0.1295 ...
+ $ tBodyAcc-std()-X                    : num  -0.938 -0.975 -0.994 -0.995 -0.994 ...
+ $ tBodyAcc-std()-Y                    : num  -0.92 -0.967 -0.97 -0.973 -0.967 ...
+ $ tBodyAcc-std()-Z                    : num  -0.668 -0.945 -0.963 -0.967 -0.978 ...
+...
 
-For each record it is provided:
-======================================
 
-- Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
-- Triaxial Angular velocity from the gyroscope.
-- A 561-feature vector with time and frequency domain variables.
-- Its activity label.
-- An identifier of the subject who carried out the experiment.
+ **Subject_ID** is the ID (from  1 to 30)
+ **Activity_ID** is the ID of the activity (from 1 to 6)
+ **Activity_Name** is the name of the activity ("WALKING", "WALKING_UPSTAIRS", "WALKING_DOWNSTAIRS", "SITTING", "STANDING", "LAYING")
+ All the following variables are the sensor signals from the smartphone, allready pre-processed, but without any modification from the original dataset.
 
-The dataset includes the following files:
-=========================================
+# reduced_tidy_data.csv
+This file contains the same data as the previous one except that only *mean()* and *std()* variables are kept.
+Units are the same.
 
-- 'README.txt'
+str(reduced_tidy_data) gives the following output (truncated here)
 
-- 'features_info.txt': Shows information about the variables used on the feature vector.
+'data.frame':	10299 obs. of  69 variables:
+ $ Subject_ID                 : num  2 2 2 2 2 2 2 2 2 2 ...
+ $ Activity_ID                : num  1 1 1 1 1 1 1 1 1 1 ...
+ $ Activity_Name              : chr  "WALKING" "WALKING" "WALKING" "WALKING" ...
+ $ tBodyAcc-mean()-X          : num  0.257 0.286 0.275 0.27 0.275 ...
+ $ tBodyAcc-mean()-Y          : num  -0.0233 -0.0132 -0.0261 -0.0326 -0.0278 ...
+ $ tBodyAcc-mean()-Z          : num  -0.0147 -0.1191 -0.1182 -0.1175 -0.1295 ...
+ $ tBodyAcc-std()-X           : num  -0.938 -0.975 -0.994 -0.995 -0.994 ...
+ $ tBodyAcc-std()-Y           : num  -0.92 -0.967 -0.97 -0.973 -0.967 ...
+ $ tBodyAcc-std()-Z           : num  -0.668 -0.945 -0.963 -0.967 -0.978 ...
+...
 
-- 'features.txt': List of all features.
+**Subject_ID** is the ID (from  1 to 30)
+**Activity_ID** is the ID of the activity (from 1 to 6)
+**Activity_Name** is the name of the activity ("WALKING", "WALKING_UPSTAIRS", "WALKING_DOWNSTAIRS", "SITTING", "STANDING", "LAYING")
+All the following variables are the sensor signals from the smartphone, allready pre-processed, but without any modification from the original dataset.
 
-- 'activity_labels.txt': Links the class labels with their activity name.
+# mean_tidy_data.csv
+This file contains data modified from the original dataset.
+A *group by* process has been applied on *Activity_Name* and *Subject_ID*, and then a *mean* for each group for all available variables.
+Units are the same, but as we are dealing with average, the *mean_* prefix has been added to the name of variables.
 
-- 'train/X_train.txt': Training set.
+str(mean_tidy_data) gives the following output (truncated here)
 
-- 'train/y_train.txt': Training labels.
+Classes ‘grouped_df’, ‘tbl_df’, ‘tbl’ and 'data.frame':	35 obs. of  69 variables:
+ $ Activity_Name                   : chr  "LAYING" "LAYING" "LAYING" "LAYING" ...
+ $ Subject_ID                      : num  25 26 27 28 29 30 8 11 14 15 ...
+ $ Activity_ID                     : num  6 6 6 6 6 6 4 4 4 4 ...
+ $ mean_tBodyAcc-mean()-X          : num  0.282 0.273 0.277 0.278 0.279 ...
+ $ mean_tBodyAcc-mean()-Y          : num  -0.0233 -0.0162 -0.0168 -0.0192 -0.0185 ...
+ $ mean_tBodyAcc-mean()-Z          : num  -0.111 -0.108 -0.111 -0.11 -0.109 ...
+ $ mean_tBodyAcc-std()-X           : num  -0.354 -0.623 -0.661 -0.649 -0.574 ...
+ $ mean_tBodyAcc-std()-Y           : num  -0.122 -0.586 -0.63 -0.574 -0.598 ...
+ $ mean_tBodyAcc-std()-Z           : num  -0.359 -0.705 -0.683 -0.686 -0.606 ...
+...
 
-- 'test/X_test.txt': Test set.
-
-- 'test/y_test.txt': Test labels.
-
-The following files are available for the train and test data. Their descriptions are equivalent.
-
-- 'train/subject_train.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30.
-
-- 'train/Inertial Signals/total_acc_x_train.txt': The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g'. Every row shows a 128 element vector. The same description applies for the 'total_acc_x_train.txt' and 'total_acc_z_train.txt' files for the Y and Z axis.
-
-- 'train/Inertial Signals/body_acc_x_train.txt': The body acceleration signal obtained by subtracting the gravity from the total acceleration.
-
-- 'train/Inertial Signals/body_gyro_x_train.txt': The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second.
-
-Notes:
-======
-- Features are normalized and bounded within [-1,1].
-- Each feature vector is a row on the text file.
-
-For more information about this dataset contact: activityrecognition@smartlab.ws
-
-License:
-========
-Use of this dataset in publications must be acknowledged by referencing the following publication [1]
-
-[1] Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012
-
-This dataset is distributed AS-IS and no responsibility implied or explicit can be addressed to the authors or their institutions for its use or misuse. Any commercial use is prohibited.
-
-Jorge L. Reyes-Ortiz, Alessandro Ghio, Luca Oneto, Davide Anguita. November 2012.
+**Subject_ID** is the ID (from  1 to 30)
+**Activity_ID** is the ID of the activity (from 1 to 6)
+**Activity_Name** is the name of the activity ("WALKING", "WALKING_UPSTAIRS", "WALKING_DOWNSTAIRS", "SITTING", "STANDING", "LAYING")
+All the following variables are the average value of the sensor signals from the smartphone, allready pre-processed, group by *Activity_Name* and *Subject_ID*.
